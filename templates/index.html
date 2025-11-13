@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Search Engine - IR Project</title>
+  <style>
+    body {font-family: Arial; background-color: #f8f9fa; padding: 30px;}
+    h1 {color: #333;}
+    form {margin-bottom: 20px;}
+    input[type=text] {width: 60%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;}
+    input[type=submit] {padding: 10px 20px; background-color: #007bff; border: none; color: white; border-radius: 5px; cursor: pointer;}
+    input[type=submit]:hover {background-color: #0056b3;}
+    table {width: 100%; border-collapse: collapse; background: white;}
+    th, td {border: 1px solid #ddd; padding: 8px; text-align: left;}
+    th {background-color: #007bff; color: white;}
+    .eval {margin-top: 20px; background: white; border: 1px solid #ddd; padding: 10px; border-radius: 5px;}
+  </style>
+</head>
+<body>
+  <h1>🔍 AI Search Engine</h1>
+  <form method="POST">
+    <input type="text" name="query" placeholder="Type something to search..." required>
+    <input type="submit" value="Search">
+  </form>
+
+  {% if results %}
+  <h2>Top Results</h2>
+  <table>
+    <tr>
+      <th>Document</th>
+      <th>Label</th>
+      <th>Similarity</th>
+      <th>Preview</th>
+    </tr>
+    {% for r in results %}
+    <tr>
+      <td>{{ r.doc }}</td>
+      <td>{{ r.label }}</td>
+      <td>{{ r.score }}</td>
+      <td>{{ r.text }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% if evaluation %}
+  <div class="eval">
+    <h3>📊 Evaluation</h3>
+    <p><b>Expected Label:</b> {{ evaluation.expected }}</p>
+    <p><b>Precision:</b> {{ evaluation.precision }}</p>
+    <p><b>Recall:</b> {{ evaluation.recall }}</p>
+    <p><b>F1-score:</b> {{ evaluation.f1 }}</p>
+  </div>
+  {% endif %}
+</body>
+</html>
