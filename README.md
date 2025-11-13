@@ -1,166 +1,207 @@
-Perfect choice 💪 — here’s a **professional, clean, and complete `README.md`** written in a GitHub-ready format for your project.
-You can copy this directly into a file named **`README.md`** in your repo root (`information retrieval/README.md`).
+# 🚀 Information Retrieval System using Gensim & Flask
+
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Gensim](https://img.shields.io/badge/Gensim-TF--IDF-green)
+![NLTK](https://img.shields.io/badge/NLTK-NLP-yellow)
+![Flask](https://img.shields.io/badge/Flask-Web%20App-red)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
+A complete **Information Retrieval (IR)** system built using **Python**, **NLTK**, **Gensim**, and a **Flask-based web interface**.  
+The system retrieves and ranks relevant documents using **TF-IDF** and **cosine similarity**, and provides evaluation metrics for each query.
 
 ---
 
-```markdown
-# Information Retrieval System using Gensim and Flask
-
-## 📘 Overview
-This project implements a complete **Information Retrieval (IR)** system built with **Python**, **NLTK**, **Gensim**, and a **Flask** web interface.  
-It retrieves and ranks relevant text documents based on a user query using TF-IDF weighting and cosine similarity.  
-The dataset includes positive and negative movie reviews (`pos/` and `neg/`), allowing evaluation of retrieval accuracy and sentiment relevance.
-
----
-
-## ⚙️ Features
-- **Text Preprocessing** — Tokenization, stopword removal, and lemmatization using NLTK.  
-- **Vectorization with TF-IDF** — Converts text to weighted numerical vectors with Gensim.  
-- **Similarity Computation** — Uses Gensim’s `MatrixSimilarity` for efficient document comparison.  
-- **Ranking & Evaluation** — Computes **Precision**, **Recall**, and **F1-score** for each query.  
-- **Interactive Flask GUI** — User-friendly search page showing top results, similarity scores, and evaluation metrics.  
+# 📑 Table of Contents
+1. [Overview](#-overview)
+2. [Features](#-features)
+3. [Tech Stack](#-tech-stack)
+4. [Architecture](#-system-architecture)
+5. [Folder Structure](#-folder-structure)
+6. [How It Works](#-how-it-works)
+7. [Installation](#-installation--setup)
+8. [Usage](#-usage)
+9. [Evaluation Metrics](#-evaluation-metrics)
+10. [Future Improvements](#-future-enhancements)
+11. [Author](#-author)
 
 ---
 
-## 🧩 Tech Stack
+# 📘 Overview
+This project demonstrates how to build a complete **Information Retrieval pipeline** using classical NLP techniques.  
+It works on the **Movie Review Polarity Dataset** (`txt_sentoken`), consisting of **2000 labeled reviews** (POS/NEG).
+
+The system includes:
+- A fully functional **IR Engine**
+- A **ranking module**
+- A **precision/recall evaluation module**
+- A **Flask web interface**
+
+---
+
+# ⚙ Features
+
+### 🔹 Text Preprocessing
+- Lowercasing  
+- Tokenization  
+- Stopword removal  
+- Lemmatization  
+
+### 🔹 TF-IDF Vectorization
+- Vocabulary dictionary  
+- Bag-of-Words model  
+- Weighted TF-IDF vectors  
+
+### 🔹 Similarity Search
+- Cosine-similarity using Gensim’s `MatrixSimilarity`
+- Top-k ranked document retrieval
+
+### 🔹 Evaluation
+- Precision  
+- Recall  
+- F1-Score  
+
+### 🔹 GUI (Flask)
+- Search bar  
+- Ranked result table  
+- Similarity scores  
+- Evaluation metrics  
+
+---
+
+# 🧩 Tech Stack
+
 | Category | Tools |
-|-----------|-------|
-| Programming Language | Python 3.10+ |
-| Text Processing | NLTK |
-| Vectorization & Similarity | Gensim (TF-IDF, MatrixSimilarity) |
-| Evaluation Metrics | Scikit-Learn |
-| Web Framework | Flask |
+|----------|-------|
+| Language | Python 3.10+ |
+| NLP | NLTK |
+| Vectorization | Gensim (TF-IDF, Dictionary, BoW) |
+| Evaluation | Scikit-Learn |
+| Web App | Flask |
 
 ---
 
-## 📂 Folder Structure
+# 📐 System Architecture
+
+```
+User Query
+     │
+     ▼
+[Preprocessing Module]
+     │
+     ▼
+[TF-IDF Vectorizer] ← Corpus Preprocessed
+     │
+     ▼
+[Similarity Engine]
+     │
+     ▼
+[Ranking Module]
+     │
+     ▼
+[Evaluation Module]
+     │
+     ▼
+[Flask GUI Output]
 ```
 
+---
+
+# 📂 Folder Structure
+```
 information-retrieval/
 │
-├── IR_gensim.py           # Core IR engine (TF-IDF model, ranking, evaluation)
-├── app.py                 # Flask application (search GUI)
+├── IR_gensim.py           # Core IR engine
+├── app.py                 # Flask web app
 ├── templates/
-│   └── index.html         # Frontend HTML template
+│   └── index.html         # GUI layout
 ├── txt_sentoken/
-│   ├── pos/               # Positive review documents
-│   └── neg/               # Negative review documents
-└── README.md              # Project documentation
-
+│   ├── pos/               # Positive movie reviews
+│   └── neg/               # Negative movie reviews
+└── README.md              # Documentation
 ```
 
 ---
 
-## 🚀 How It Works
-1. **Corpus Loading:**  
-   Loads all `.txt` files from the `pos` and `neg` folders using `PlaintextCorpusReader`.
-2. **Preprocessing:**  
-   Cleans text (lowercasing, tokenizing, removing stopwords, lemmatizing).
-3. **Vectorization:**  
-   Builds a TF-IDF model to represent documents numerically.
-4. **Similarity Computation:**  
-   Uses `MatrixSimilarity` to measure similarity between the query and all documents.
-5. **Ranking & Evaluation:**  
-   Displays the top-10 most relevant documents with similarity scores and computes:
-   - Precision  
-   - Recall  
-   - F1-score  
-6. **Flask Web Interface:**  
-   Provides a search page where users can enter queries and view ranked results dynamically.
+# 🚀 How It Works
+
+### **1. Corpus Loading**
+Documents are loaded from POS and NEG folders via `PlaintextCorpusReader`.
+
+### **2. Preprocessing**
+Each document is:
+- Lowercased  
+- Tokenized  
+- Cleaned  
+- Lemmatized  
+
+### **3. TF-IDF Model Creation**
+- Build dictionary  
+- Convert documents to Bag-of-Words  
+- Apply TF-IDF weighting  
+
+### **4. Similarity Computation**
+The query is processed and compared to all documents using cosine similarity.
+
+### **5. Ranking Output**
+Top-10 documents are displayed with labels and similarity scores.
+
+### **6. Evaluation**
+Precision, Recall, and F1-Score are computed based on expected vs. retrieved sentiment label.
 
 ---
 
-## 🧠 Example Query (Console Mode)
-```
+# 💻 Installation & Setup
 
-Write what you want to search... (write EXIT if you want to close.)
-
-> just teens whining about who's going to take them to the big dance.
-
-```
-
-**Output:**
-```
-
-Top 10 Most Similar Documents:
-
-1. neg/cv018_21672.txt | [NEG] | Similarity: 0.192
-2. pos/cv204_8451.txt | [POS] | Similarity: 0.181
-   ...
-
-Evaluation for this query:
-Expected label: NEG
-Precision: 0.40 | Recall: 1.00 | F1-score: 0.57
-
-````
-
----
-
-## 💻 Installation & Usage
-
-### 1️⃣ Clone the Repository
+### **1️⃣ Clone Repository**
 ```bash
 git clone https://github.com/Amr-Belal-77/information-retrieval-gensim.git
 cd information-retrieval-gensim
-````
+```
 
-### 2️⃣ Install Dependencies
-
+### **2️⃣ Install Dependencies**
 ```bash
 pip install nltk gensim scikit-learn flask
 ```
 
-### 3️⃣ Run Interactive Mode
-
+### **3️⃣ Run Console IR Engine**
 ```bash
 python IR_gensim.py
 ```
 
-### 4️⃣ Run Flask Web Interface
-
+### **4️⃣ Run Flask GUI**
 ```bash
 python app.py
 ```
 
-Then open your browser at:
-
+Open browser:
 ```
 http://127.0.0.1:5000
 ```
 
 ---
 
-## 📊 Evaluation Metrics
+# 🧪 Evaluation Metrics
 
-| Metric        | Meaning                                              |
-| ------------- | ---------------------------------------------------- |
-| **Precision** | Proportion of retrieved documents that are relevant  |
-| **Recall**    | Proportion of relevant documents that were retrieved |
-| **F1-Score**  | Harmonic mean of Precision and Recall                |
-
----
-
-## 🧰 Requirements
-
-* Python ≥ 3.10
-* NLTK ≥ 3.9
-* Gensim ≥ 4.3
-* Scikit-Learn ≥ 1.5
-* Flask ≥ 3.0
+| Metric | Description |
+|--------|-------------|
+| **Precision** | Accuracy of retrieved results |
+| **Recall** | Coverage of relevant documents |
+| **F1-Score** | Balance between precision & recall |
 
 ---
 
-## 📈 Future Improvements
+# 📈 Future Enhancements
 
-* Integrate **Word2Vec / Doc2Vec** for semantic search.
-* Add **BERT-based embeddings** for deeper contextual retrieval.
-* Implement **advanced ranking metrics** (MAP, nDCG).
-* Enhance **Flask frontend** using Bootstrap or React.
+- Add semantic embeddings: **Word2Vec**, **Doc2Vec**
+- Integrate **BERT** for contextual retrieval
+- UI improvement using **Bootstrap / React**
+- Add ranking metrics: MAP, nDCG
+- Add relevance feedback (Rocchio Algorithm)
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-**Amr Belal**
-
-
+**Amr Belal**  
+Information Retrieval System — TF-IDF + Flask  
+GitHub: *Amr-Belal-77*
